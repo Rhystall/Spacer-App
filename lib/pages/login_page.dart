@@ -206,14 +206,20 @@ class _LoginPageState extends State<LoginPage> {
             setState(() {
               isLoading = false;
             });
+
+            if (password.text != '12345') {
+              setState(() {
+                isPasswordError = true;
+              });
+              FToast().showToast(
+                child: errorToast(),
+                toastDuration: const Duration(seconds: 3),
+                gravity: ToastGravity.BOTTOM,
+              );
+            } else {
+              Navigator.pushNamed(context, '/home');
+            }
           });
-          if (password.text != '12345') {
-            setState(() {
-              isPasswordError = true;
-            });
-          }
-          FToast().showToast(
-              child: errorToast(), toastDuration: const Duration(seconds: 3));
         },
         child: isLoading
             ? CircularProgressIndicator(
